@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA HUNT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen active">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <span class="terminal-title">SECURE_TERMINAL.EXE</span>
+                <div class="terminal-controls">
+                    <span class="control minimize">─</span>
+                    <span class="control maximize">□</span>
+                    <span class="control close">×</span>
+                </div>
+            </div>
+            <div class="terminal-body">
+                <div class="ascii-art">
+                    <pre>
+██████╗  █████╗ ████████╗ █████╗     ██╗  ██╗██╗   ██╗███╗   ██╗████████╗
+██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗    ██║  ██║██║   ██║████╗  ██║╚══██╔══╝
+██║  ██║███████║   ██║   ███████║    ███████║██║   ██║██╔██╗ ██║   ██║   
+██║  ██║██╔══██║   ██║   ██╔══██║    ██╔══██║██║   ██║██║╚██╗██║   ██║   
+██████╔╝██║  ██║   ██║   ██║  ██║    ██║  ██║╚██████╔╝██║ ╚████║   ██║   
+╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   
+                    </pre>
+                </div>
+                <div class="subtitle-text">pragati</div>
+                <div class="rules-container">
+                    <h2 class="section-title">[MISSION PARAMETERS]</h2>
+                    <div class="rules-list">
+                        <div class="rule">
+                            <span class="rule-number">01.</span>
+                            <span class="rule-text">20 questions in a fixed order</span>
+                        </div>
+                        <div class="rule">
+                            <span class="rule-number">02.</span>
+                            <span class="rule-text">90 seconds per question</span>
+                        </div>
+                        <div class="rule">
+                            <span class="rule-number">03.</span>
+                            <span class="rule-text">Wrong answer or timeout → quiz restarts from the beginning (goes back to start screen)</span>
+                        </div>
+                        <div class="rule">
+                            <span class="rule-number">04.</span>
+                            <span class="rule-text">Each correct answer reveals part of a secret binary code</span>
+                        </div>
+                        <div class="rule">
+                            <span class="rule-number">05.</span>
+                            <span class="rule-text">At the end, the user gets the full code, winning badge, and device time</span>
+                        </div>
+                    </div>
+                    <div class="warning-message">
+                        <span class="warning-icon">⚠</span>
+                        <span>WARNING: Only the most persistent hackers will unlock the secret code...</span>
+                    </div>
+                </div>
+                <button id="beginQuizBtn" class="terminal-button">
+                    <span class="btn-text">BEGIN QUIZ</span>
+                    <span class="btn-cursor">█</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="screen">
+        <div class="quiz-container">
+            <!-- Binary Code Container -->
+            <div class="binary-container">
+                <div class="binary-header">
+                    <span class="binary-label">[DECRYPTION PROGRESS]</span>
+                    <span class="binary-status" id="binaryStatus">LOCKED</span>
+                </div>
+                <div class="binary-display" id="binaryDisplay">
+                    <span class="binary-code" id="binaryCode">____________________</span>
+                </div>
+            </div>
+
+            <!-- Quiz Interface -->
+            <div class="quiz-interface">
+                <div class="quiz-header">
+                    <div class="question-counter">
+                        <span>QUESTION</span>
+                        <span id="questionNumber">1</span>
+                        <span>OF 20</span>
+                    </div>
+                    <div class="timer-container">
+                        <div class="timer-label">TIME REMAINING</div>
+                        <div class="timer" id="timer">01:30</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-text" id="questionText"></div>
+                </div>
+
+                <div class="answers-container" id="answersContainer">
+                    <!-- Answer buttons will be generated here -->
+                </div>
+
+                <div class="feedback-message" id="feedbackMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victoryScreen" class="screen">
+        <div class="terminal-window victory-terminal">
+            <div class="terminal-header">
+                <span class="terminal-title">ACCESS_GRANTED.EXE</span>
+                <div class="terminal-controls">
+                    <span class="control minimize">─</span>
+                    <span class="control maximize">□</span>
+                    <span class="control close">×</span>
+                </div>
+            </div>
+            <div class="terminal-body victory-body">
+                <div class="victory-animation">
+                    <div class="victory-title">🎉 ACCESS GRANTED! 🎉</div>
+                    <div class="victory-subtitle">SECURITY BREACH SUCCESSFUL</div>
+                </div>
+                
+                <div class="victory-details">
+                    <div class="victory-item">
+                        <span class="victory-label">🏅 STATUS:</span>
+                        <span class="victory-value">ELITE HACKER</span>
+                    </div>
+                    <div class="victory-item">
+                        <span class="victory-label">🔑 SECRET CODE:</span>
+                        <span class="victory-value binary-reveal" id="finalBinaryCode">10111011000110010101</span>
+                    </div>
+                    <div class="victory-item">
+                        <span class="victory-label">📅 BREACH TIME:</span>
+                        <span class="victory-value" id="completionTime"></span>
+                    </div>
+                </div>
+
+                <button id="playAgainBtn" class="terminal-button victory-button">
+                    <span class="btn-text">PLAY AGAIN</span>
+                    <span class="btn-cursor">█</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
